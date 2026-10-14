@@ -1,0 +1,42 @@
+/* 사진 올리는 영역 */
+.dropzone {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  min-height: 170px; padding: 24px; text-align: center; cursor: pointer;
+  border: 2px dashed var(--line); border-radius: 10px; background: var(--panel);
+  transition: border-color 0.15s, background 0.15s;
+}
+.dropzone.over { border-color: var(--accent); background: var(--soft); }
+.dropzone strong { font-size: 18px; }
+.dropzone span { color: var(--muted); font-size: 14px; }
+
+/* 버튼 줄 */
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 16px 0; }
+.summary { margin-left: auto; color: var(--muted); font-size: 14px; }
+
+/* 사진 목록 */
+.file-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.file-item {
+  display: grid; grid-template-columns: 64px 1fr auto; gap: 14px; align-items: center;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px;
+}
+.file-item img { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; background: var(--soft); }
+.file-name { font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-sub { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.file-sub b { color: var(--ink); }
+.meter { height: 6px; border-radius: 3px; background: var(--soft); margin: 6px 0 4px; overflow: hidden; }
+.meter i { display: block; height: 100%; background: var(--ok); border-radius: 3px; }
+.file-note { font-size: 13px; color: var(--muted); }
+.file-note.ok { color: var(--ok); }
+.file-note.warn { color: var(--warn); }
+.file-note.err { color: var(--err); }
+.file-actions { display: flex; gap: 6px; }
+.file-actions a {
+  text-decoration: none; color: var(--on-accent); background: var(--accent);
+  border-radius: 6px; padding: 7px 12px; font-size: 14px; font-weight: 500;
+}
+.file-actions button { padding: 7px 10px; }
+@media (max-width: 520px) {
+  .file-item { grid-template-columns: 48px 1fr; }
+  .file-item img { width: 48px; height: 48px; }
+  .file-actions { grid-column: 1 / -1; }
+}

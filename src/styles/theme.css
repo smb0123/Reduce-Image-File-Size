@@ -1,0 +1,29 @@
+/* 색상 변수. 다크 모드는 브라우저 설정을 따라갑니다. */
+:root {
+  --bg: #E9EEF3;
+  --panel: #fff;
+  --soft: #F2F5F8;
+  --ink: #13212E;
+  --muted: #5C6B7A;
+  --line: #CBD5DF;
+  --accent: #1F4FE0;
+  --on-accent: #fff;
+  --ok: #13795B;
+  --warn: #B45309;
+  --err: #B91C1C;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0F1720;
+    --panel: #17212C;
+    --soft: #1E2A37;
+    --ink: #E6EDF4;
+    --muted: #93A3B4;
+    --line: #2B3A4A;
+    --accent: #6C8CFF;
+    --on-accent: #0B1220;
+    --ok: #4CC9A0;
+    --warn: #F0A64B;
+    --err: #F27878;
+  }
+}
