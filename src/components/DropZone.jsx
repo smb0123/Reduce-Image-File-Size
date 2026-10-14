@@ -47,7 +47,7 @@ export default function DropZone({ onFiles }) {
       }}
     >
       <strong>사진을 여기로 끌어놓거나 눌러서 선택</strong>
-      <span>여러 장을 한 번에 올릴 수 있어요. 붙여넣기(Ctrl+V)도 돼요.</span>
+      <span>여러 장을 한 번에 올릴 수 있어요.</span>
       <input
         ref={inputRef}
         type="file"

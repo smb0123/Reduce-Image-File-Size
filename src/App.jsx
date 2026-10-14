@@ -29,7 +29,7 @@ export default function App() {
     <div className="wrap">
       <h1>사진 용량 줄이기</h1>
       <p className="lead">
-        용량을 최대한 줄이고, 크기 조절과 형식 변환도 한 번에 처리해요. 모든 작업은 이 브라우저 안에서만 이루어지고 사진은 서버로 올라가지 않아요.
+        용량을 최대한 줄이고, 크기 조절과 형식 변환도 한 번에 처리해요.
       </p>
       <div className="grid">
         <SettingsPanel settings={settings} onChange={updateSettings} />
