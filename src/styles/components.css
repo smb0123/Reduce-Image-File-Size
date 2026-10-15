@@ -40,3 +40,6 @@
   .file-item img { width: 48px; height: 48px; }
   .file-actions { grid-column: 1 / -1; }
 }
+
+/* 출력 형식 (JPG 고정) */
+.format-fixed { margin: 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--soft); font-weight: 500; }

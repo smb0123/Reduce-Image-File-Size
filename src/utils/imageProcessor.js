@@ -1,4 +1,4 @@
-import { SIZE_LIMIT } from '../constants';
+import { OUTPUT_TYPE, SIZE_LIMIT } from '../constants';
 
 const toBlob = (canvas, type, quality) =>
   new Promise((resolve) => canvas.toBlob(resolve, type, quality));
@@ -11,12 +11,6 @@ const positive = (v) => {
 // 용량을 줄이려고 크기를 몇 배로 줄일지 (용량 비율의 제곱근 기준)
 const shrinkFactor = (size) =>
   Math.max(0.5, Math.min(0.9, Math.sqrt(SIZE_LIMIT / size) * 0.95));
-
-export function supportsAvif() {
-  const c = document.createElement('canvas');
-  c.width = c.height = 1;
-  return c.toDataURL('image/avif').startsWith('data:image/avif');
-}
 
 export async function readImageSize(file) {
   const bitmap = await createImageBitmap(file);
@@ -47,17 +41,15 @@ export function getTargetSize({ width, height }, s) {
   return [width, height];
 }
 
-function drawToCanvas(bitmap, w, h, type, crop) {
+function drawToCanvas(bitmap, w, h, crop) {
   const canvas = document.createElement('canvas');
   canvas.width = w;
   canvas.height = h;
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingQuality = 'high';
-  if (type === 'image/jpeg') {
-    // JPG는 투명을 지원하지 않아 흰 배경을 깔아 줍니다.
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, w, h);
-  }
+  // JPG는 투명을 지원하지 않아 흰 배경을 깔아 줍니다.
+  ctx.fillStyle = '#fff';
+  ctx.fillRect(0, 0, w, h);
   if (crop) {
     const k = Math.max(w / bitmap.width, h / bitmap.height);
     const sw = w / k;
@@ -78,8 +70,7 @@ function drawToCanvas(bitmap, w, h, type, crop) {
  */
 export async function convertImage(file, src, s) {
   const bitmap = await createImageBitmap(file);
-  const type = s.type;
-  const isPng = type === 'image/png';
+  const type = OUTPUT_TYPE;
   const [tw, th] = getTargetSize(src, s);
   const keepSize = s.sizeMode === 'px' && (positive(s.width) || positive(s.height));
   const crop = s.sizeMode === 'px' && positive(s.width) && positive(s.height) && s.fit === 'cover';
@@ -93,14 +84,7 @@ export async function convertImage(file, src, s) {
   for (let tries = 0; tries < 14; tries++) {
     w = Math.max(1, Math.round(tw * scale));
     h = Math.max(1, Math.round(th * scale));
-    const canvas = drawToCanvas(bitmap, w, h, type, crop);
-
-    if (isPng) {
-      blob = await toBlob(canvas, type);
-      if (blob.size <= SIZE_LIMIT || keepSize) break;
-      scale *= shrinkFactor(blob.size);
-      continue;
-    }
+    const canvas = drawToCanvas(bitmap, w, h, crop);
 
     const top = await toBlob(canvas, type, s.quality);
     if (top.size <= SIZE_LIMIT) {
@@ -135,7 +119,7 @@ export async function convertImage(file, src, s) {
   let tone = 'ok';
   if (blob.size > SIZE_LIMIT) {
     note = keepSize
-      ? '지정한 크기를 유지해서 1MB를 넘었어요. 크기를 줄이거나 WebP를 써 보세요.'
+      ? '지정한 크기를 유지해서 1MB를 넘었어요. 너비와 높이를 줄여 보세요.'
       : '1MB 안으로 맞추지 못했어요.';
     tone = 'warn';
   } else if (scale < 1) {

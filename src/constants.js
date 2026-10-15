@@ -1,19 +1,9 @@
 // 결과물의 최대 용량 (1MB = 1,000,000 byte 기준이라 어떤 단위로 봐도 1MB 미만)
 export const SIZE_LIMIT = 1_000_000;
 
-export const EXTENSIONS = {
-  'image/jpeg': 'jpg',
-  'image/webp': 'webp',
-  'image/png': 'png',
-  'image/avif': 'avif',
-};
-
-export const FORMAT_OPTIONS = [
-  { value: 'image/jpeg', label: 'JPG' },
-  { value: 'image/webp', label: 'WebP' },
-  { value: 'image/png', label: 'PNG' },
-];
-export const AVIF_OPTION = { value: 'image/avif', label: 'AVIF' };
+// 출력 형식은 JPG만 지원합니다.
+export const OUTPUT_TYPE = 'image/jpeg';
+export const OUTPUT_EXTENSION = 'jpg';
 
 export const STRENGTH_OPTIONS = [
   { value: 0.5, label: '최대 압축 (용량 최소)' },
@@ -34,7 +24,6 @@ export const FIT_OPTIONS = [
 ];
 
 export const DEFAULT_SETTINGS = {
-  type: 'image/jpeg',
   quality: 0.5,
   sizeMode: 'orig', // orig | px | pct
   width: '',

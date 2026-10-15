@@ -7,7 +7,7 @@ const tick = () => new Promise((r) => setTimeout(r));
 
 /**
  * 사진 목록과 변환 큐를 관리합니다.
- * items 각 항목: { id, file, thumb, width, height, status, blob, url, outWidth, outHeight, note, tone, outType, outName }
+ * items 각 항목: { id, file, thumb, width, height, status, blob, url, outWidth, outHeight, note, tone, outName }
  * status: wait(대기) | busy(변환 중) | done(완료) | error(오류)
  */
 export function useImageQueue(settings) {
@@ -60,7 +60,6 @@ export function useImageQueue(settings) {
                 outHeight: r.height,
                 note: r.note,
                 tone: r.tone,
-                outType: s.type,
               });
             }
           } catch {

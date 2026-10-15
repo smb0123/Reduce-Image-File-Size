@@ -5,7 +5,7 @@ import StrengthField from './settings/StrengthField';
 export default function SettingsPanel({ settings, onChange }) {
   return (
     <aside className="panel">
-      <FormatField value={settings.type} onChange={onChange} />
+      <FormatField />
       <SizeFields settings={settings} onChange={onChange} />
       <StrengthField value={settings.quality} onChange={onChange} />
     </aside>
